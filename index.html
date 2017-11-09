@@ -19,21 +19,19 @@
 <body>
     <div class="hero animated fadeIn">
         <div class="hero-cover">
-            <div class="hero-text">
-                <div class="container">
-                    <h1>Church of God</h1>
-                    <h4 class="random-quote"></h4>
-                    <div class="additional-text">
-                        Help us by donating
-                        <br/><strong>Bitcoin:</strong> 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF
-                        <br/><strong>Ethereum:</strong> 0xd3495c391e9702390de142f4c966feb0fbe5e751
-                        <br/><br/>
-                        <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdonatetojesuschrist.github.io&layout=button&size=small&mobile_iframe=true&width=59&height=20&appId"
-                            width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Donate to Jesus" data-url="https://donatetojesuschrist.github.io/"
-                            data-show-count="false">Tweet</a>
-                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                    </div>
+            <div class="hero-text container">
+                <h1>Church of God</h1>
+                <h4 class="random-quote"></h4>
+                <div class="additional-text">
+                    Help us by donating
+                    <br/><strong>Bitcoin:</strong> 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF
+                    <br/><strong>Ethereum:</strong> 0xd3495c391e9702390de142f4c966feb0fbe5e751
+                    <br/><br/>
+                    <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdonatetojesuschrist.github.io&layout=button&size=small&mobile_iframe=true&width=59&height=20&appId"
+                        width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Donate to Jesus" data-url="https://donatetojesuschrist.github.io/"
+                        data-show-count="false">Tweet</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
             </div>
         </div>
@@ -49,10 +47,11 @@
                 <div id="home" class="tab-pane fade in active">
                     <h3>Pray</h3>
                     <div class="row">
-                        <div class="col-md-3 col-sm-2">
+                        <div class="col-md-3 col-sm-12">
                             <div class="button-panel"></div>
+                            <div class="mobile-only-button-panel"></div>
                         </div>
-                        <div class="col-md-8 col-sm-10">
+                        <div class="col-md-8 col-sm-12">
                             <div class="content"></div>
                         </div>
                     </div>
@@ -121,15 +120,19 @@
         }
 
         function processBible(bible) {
-            var content = "";
             var buttons = "";
+            var mobileButtons = "";
             bibleData = JSON.parse(bible);
             var chapters, phrases;
+            mobileButtons = '<select class="form-control" onchange="selectBook(this.value);">';
             Object.keys(bibleData).forEach(function (key) {
                 bookNames.push(key);
                 buttons += '<button id="book-' + key + '" class="btn btn-primary btn-books" onclick="selectBook(\'' + key + '\');">' + key + '</button>';
+                mobileButtons += '<option value="' + key + '">' + key + '</option>';
             })
+            mobileButtons += '</select>';
             $("#home .button-panel").html(buttons);
+            $("#home .mobile-only-button-panel").html(mobileButtons);
             selectBook('Genesis');
         }
 
