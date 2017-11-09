@@ -20,18 +20,20 @@
     <div class="hero animated fadeIn">
         <div class="hero-cover">
             <div class="hero-text">
-                <h1>Church of God</h1>
-                <h4 class="random-quote"></h4>
-                <div class="additional-text">
-                    Help us by donating
-                    <br/><strong>Bitcoin:</strong> 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF
-                    <br/><strong>Ethereum:</strong> 0xd3495c391e9702390de142f4c966feb0fbe5e751
-                    <br/><br/>
-                    <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdonatetojesuschrist.github.io&layout=button&size=small&mobile_iframe=true&width=59&height=20&appId"
-                        width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Donate to Jesus" data-url="https://donatetojesuschrist.github.io/"
-                        data-show-count="false">Tweet</a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="container">
+                    <h1>Church of God</h1>
+                    <h4 class="random-quote"></h4>
+                    <div class="additional-text">
+                        Help us by donating
+                        <br/><strong>Bitcoin:</strong> 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF
+                        <br/><strong>Ethereum:</strong> 0xd3495c391e9702390de142f4c966feb0fbe5e751
+                        <br/><br/>
+                        <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdonatetojesuschrist.github.io&layout=button&size=small&mobile_iframe=true&width=59&height=20&appId"
+                            width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Donate to Jesus" data-url="https://donatetojesuschrist.github.io/"
+                            data-show-count="false">Tweet</a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,10 +49,10 @@
                 <div id="home" class="tab-pane fade in active">
                     <h3>Pray</h3>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-sm-2">
                             <div class="button-panel"></div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-sm-10">
                             <div class="content"></div>
                         </div>
                     </div>
@@ -82,19 +84,19 @@
         var bibleData;
         var bookNames = [];
 
-        function randomBibleQuote(){
-            var randomNumber = Math.round(Math.random() * (bookNames.length-1));
+        function randomBibleQuote() {
+            var randomNumber = Math.round(Math.random() * (bookNames.length - 1));
             var bookName = bookNames[randomNumber];
             var book = bibleData[bookName];
             var chapters = Object.keys(book);
-            randomNumber = Math.round(Math.random() * (chapters.length-1));
+            randomNumber = Math.round(Math.random() * (chapters.length - 1));
             var chapterName = chapters[randomNumber];
             var chapter = book[chapterName];
             var phrases = Object.keys(chapter);
-            randomNumber = Math.round(Math.random() * (phrases.length-1));
+            randomNumber = Math.round(Math.random() * (phrases.length - 1));
             var phrasesName = phrases[randomNumber];
             var phrase = chapter[phrasesName];
-            return  phrase + " —" + bookName + " (" + chapterName + ":" + phrasesName + ")";
+            return phrase + " —" + bookName + " (" + chapterName + ":" + phrasesName + ")";
         }
 
         function hideCover() {
@@ -115,7 +117,7 @@
             $("#book-" + bookKey).addClass("active");
             $("#home .content").html(content);
             //Random bible quotes
-            $("h4.random-quote").html('<blockquote>&ldquo; '+randomBibleQuote()+' &rdquo;</blockquote>');
+            $("h4.random-quote").html('<blockquote>&ldquo; ' + randomBibleQuote() + ' &rdquo;</blockquote>');
         }
 
         function processBible(bible) {
