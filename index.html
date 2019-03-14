@@ -10,8 +10,8 @@
     <meta property="og:description" content="Believe in God and Donate now!" />
     <meta property="og:image" content="http://i.imgur.com/cQOpPaC.jpg?fb" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans|Vollkorn|Muli|Sumana" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" type="text/css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+        type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" type="text/css" />
     <link rel="stylesheet" href="jesus.css" type="text/css" />
 </head>
@@ -24,20 +24,21 @@
                 <h4 class="random-quote"></h4>
                 <div class="additional-text">
                     Help us by donating
-                    <br/><strong>Bitcoin:</strong> 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF
-                    <br/><strong>Ethereum:</strong> 0xA15Df1189b519DE6A1B9C9998b21E949978332fc
-                    <br/><strong>Ripple:</strong> rDCWkSuwrXPffeX2YgSuV7uRgDfUwi9PVi - Destination Tag: 129
-                    <br/><br/>
+                    <br /><strong>Bitcoin:</strong> 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF
+                    <br /><strong>Ethereum:</strong> 0xA15Df1189b519DE6A1B9C9998b21E949978332fc
+                    <br /><strong>Ripple:</strong> rDCWkSuwrXPffeX2YgSuV7uRgDfUwi9PVi - Destination Tag: 129
+                    <br /><br />
                     <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdonatetojesuschrist.github.io&layout=button&size=small&mobile_iframe=true&width=59&height=20&appId"
-                        width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Donate to Jesus" data-url="https://donatetojesuschrist.github.io/"
-                        data-show-count="false">Tweet</a>
+                        width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+                        allowTransparency="true"></iframe>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Donate to Jesus"
+                        data-url="https://donatetojesuschrist.github.io/" data-show-count="false">Tweet</a>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container main-stuff">
+    <div id="mainContent" class="container main-stuff">
         <div class="col-md-12 col-sm-12">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Pray</a></li>
@@ -48,38 +49,60 @@
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <h3>Pray</h3>
+                    <div class="row" v-if="ready">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-xl" placeholder="Search Bible Phrase"
+                                    v-model="query" @keyup.enter="searchPhrase()" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-12">
                             <div class="button-panel"></div>
                             <div class="mobile-only-button-panel"></div>
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <div class="content"></div>
+                            <div class="content" v-for="phrase in phrases">
+                                <h5 class="proper-header" v-html="phrase.title"></h5>
+                                <div class="bible-text" v-html="phrase.content"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div id="board" class="tab-pane fade">
                     <h3>Donors' Board</h3>
-                    Coming soon!
+                    <p>We would like to thank our top donors for keeping us alive and help spread the message of God to
+                        the world.</p>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="donor in donors">
+                            <span v-html="donor.name"></span> - <span v-html="parseCurrency(donor.amount)"></span>
+                        </li>
+                    </ul>
                 </div>
                 <div id="donate" class="tab-pane fade">
                     <h3>Donate</h3>
-                    We are a <strong>digital church</strong> that is focus on spreading <strong class="gold-text">Christianity</strong>                    in South East Asia. Please help us by donating to our bitcoin / Ethereum accounts.
-                    <br/> If you are using bitcoin, simply scan the following QR code to donate. Any amount will be deeply
-                    appreciated by us!<br/>
-                    <strong>Address: 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF</strong><br/>
+                    We are a <strong>digital church</strong> that is focus on spreading <strong class="gold-text">Christianity</strong>
+                    in South East Asia. Please help us by donating to our bitcoin / Ethereum accounts.
+                    <br /> If you are using bitcoin, simply scan the following QR code to donate. Any amount will be
+                    deeply
+                    appreciated by us!<br />
+                    <strong>Address: 3Bhr86h2Zt7bzwauXzdsXwhAvFaPdmQ5VF</strong><br />
                     <img src="bitcoin.png" class="thumbnail" />
-                    <br/><br/> If you are using Ethereum, simply scan the following QR code to donate. Any amount will be
-                    deeply appreciated by us!<br/>
-                    <strong>Address: 0xA15Df1189b519DE6A1B9C9998b21E949978332fc</strong><br/>
+                    <br /><br /> If you are using Ethereum, simply scan the following QR code to donate. Any amount
+                    will be
+                    deeply appreciated by us!<br />
+                    <strong>Address: 0xA15Df1189b519DE6A1B9C9998b21E949978332fc</strong><br />
                     <img src="ether.png" class="thumbnail" />
-                    <br/><br/> If you are using Ripple, simply scan the following QR code to donate. Any amount will be
-                    deeply appreciated by us!<br/>
-                    <strong>Address: rDCWkSuwrXPffeX2YgSuV7uRgDfUwi9PVi - Destination Tag: 129</strong><br/>
+                    <br /><br /> If you are using Ripple, simply scan the following QR code to donate. Any amount will
+                    be
+                    deeply appreciated by us!<br />
+                    <strong>Address: rDCWkSuwrXPffeX2YgSuV7uRgDfUwi9PVi - Destination Tag: 129</strong><br />
                     <img src="ripple.png" class="thumbnail" />
                 </div>
                 <div id="contact" class="tab-pane fade">
-                    Any suggestions, opinions or if you would like to make a custom donation, please contact us at <a href="mailto:jesusthelordsg@gmail.com" target="_blank">jesusthelordsg@gmail.com</a>
+                    Any suggestions, opinions or if you would like to make a custom donation, please contact us at <a
+                        href="mailto:jesusthelordsg@gmail.com" target="_blank">jesusthelordsg@gmail.com</a>
                     Your help will be greatly apperciated by everyone of us at this Church.
                 </div>
             </div>
@@ -88,10 +111,39 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.8/vue.min.js"></script>
     <div class="farfaraway"></div>
     <script type="text/javascript">
         var bibleData;
         var bookNames = [];
+        var app = null;
+        var donors = [{ name: 'Cecilia Halim', amount: 8888 }, { name: 'Stephanie Susanto', amount: 3468.80 }, { name: 'Raymond Tjahaja Winardi', amount: 2680 },
+        { name: 'May Quiambao', amount: 1928.50 }, { name: 'Elizabeth Cardona Soriano', amount: 1175 }];
+        var transformedBible = [];
+
+        function transformBible() {
+            var bookNames = _.keys(bibleData);
+            _.map(bookNames, function (bookName) {
+                var book = bibleData[bookName];
+                var chapterNames = _.keys(bookName);
+                _.map(chapterNames, function (chapterName) {
+                    var chapter = book[chapterName];
+                    var verseNames = _.keys(chapter);
+                    _.map(verseNames, function (verseName) {
+                        var verse = {
+                            book: bookName,
+                            chapter: chapterName,
+                            verse: verseName,
+                            content: chapter[verseName]
+                        }
+                        transformedBible.push(verse);
+                    });
+                });
+            });
+            app.ready = true;
+        }
 
         function randomBibleQuote() {
             var randomNumber = Math.round(Math.random() * (bookNames.length - 1));
@@ -114,19 +166,41 @@
 
         function selectBook(bookKey) {
             var book = bibleData[bookKey];
-            var content = "";
-            Object.keys(book).forEach(function (chapter) {
-                phrases = book[chapter];
-                Object.keys(phrases).forEach(function (phrase) {
-                    content += '<h5 class="proper-header">' + bookKey + ' ' + chapter + ':' + phrase + '</h5>';
-                    content += '<div class="bible-text">' + phrases[phrase] + '</div>';
+            var phrases = [];
+
+            var chapters = _.keys(book);
+            _.map(chapters, function (chapter) {
+                var chapterVerses = book[chapter];
+                var verses = _.keys(chapterVerses);
+                _.map(verses, function (verse) {
+                    var phrase = {
+                        title: bookKey + ' ' + chapter + ':' + verse,
+                        content: chapterVerses[verse]
+                    };
+                    phrases.push(phrase);
                 });
             });
             $(".btn-books").removeClass("active");
             $("#book-" + bookKey).addClass("active");
-            $("#home .content").html(content);
+            if (app !== null) {
+                app.phrases = phrases;
+            }
             //Random bible quotes
             $("h4.random-quote").html('<blockquote>&ldquo; ' + randomBibleQuote() + ' &rdquo;</blockquote>');
+        }
+
+        function searchBible(term) {
+            var phrases = [];
+            _.filter(transformedBible, function (verse) {
+                if (verse.content.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+                    var phrase = {
+                        title: verse.book + ' ' + verse.chapter + ':' + verse.verse,
+                        content: verse.content
+                    };
+                    phrases.push(phrase);
+                }
+            });
+            app.phrases = phrases;
         }
 
         function processBible(bible) {
@@ -144,6 +218,7 @@
             $("#home .button-panel").html(buttons);
             $("#home .mobile-only-button-panel").html(mobileButtons);
             selectBook('Genesis');
+            transformBible();
         }
 
         function loadBibleFromWeb() {
@@ -154,6 +229,28 @@
                     localStorage.setItem("bible", data);
                 }
                 processBible(data);
+            });
+        }
+
+        function loadApp() {
+            app = new Vue({
+                el: '#mainContent',
+                data: {
+                    ready: false,
+                    phrases: [],
+                    donors: donors,
+                    query: ''
+                },
+                methods: {
+                    parseCurrency: function (amt) {
+                        return numeral(amt).format('$0,0[.]00');
+                    },
+                    searchPhrase: function () {
+                        if (this.query !== '') {
+                            searchBible(this.query);
+                        }
+                    }
+                }
             });
         }
 
@@ -170,6 +267,7 @@
         }
 
         $(document).ready(function () {
+            loadApp();
             loadBible();
         });
     </script>
